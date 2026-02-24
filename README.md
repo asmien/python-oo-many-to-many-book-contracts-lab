@@ -1,116 +1,87 @@
-# Many-to-many Object Relationships Lab
+# Many-to-Many Relationships – Book Contracts Lab
+## Overview
+This project implements a many-to-many relationship between Author and Book using a Contract intermediary class.
+An author can have multiple books through contracts.
+A book can have multiple authors through contracts.
 
-Now that we have learned about several types of relationships it's time to build 
-one of our own. In this lab you will be creating a many-to many relationship in 
-python 
+This lab demonstrates relational modeling in Python using object-oriented principles.
 
-## The Scenario 
+## Concepts Demonstrated
+Many-to-many relationships
+Class attributes
+Object validation
+Intermediary relationship classes
+Data filtering using list comprehensions
+Aggregation methods
+Test-driven development with pytest
 
-We are tasked with building a model to aid in building contracts for books with 
-multiple authors. As a part of this model we need to create an Author model, a Book 
-model and a Contract model. Authors can have many books through contracts, and books 
-can have many authors through contacts.
+## Project Structure
+```
+book-contracts/
+│
+├── many_to_many.py
+├── test_many_to_many.py
+├── conftest.py
+└── README.md
+```
 
-## Tools & Resources 
-- [Github Repo](https://github.com/learn-co-curriculum/python-oo-many-to-many-book-contracts-lab)
-- [Python classes](https://docs.python.org/3/tutorial/classes.html)
 
-## Instructions
+## Class Design
+### Author
+Attributes
+name
+all (class attribute storing all authors)
+Methods
+contracts() → returns list of contracts
+books() → returns related books
+sign_contract(book, date, royalties) → creates new contract
+total_royalties() → returns sum of royalties
 
-### Task 1: Define the Problem
+### Book
+Attributes
+title
+all (class attribute storing all books)
+Methods
+contracts() → returns list of contracts
+authors() → returns related authors
 
-Build a model a many to many relationship between Books and Authors:
+### Contract
+Attributes
+author (must be Author instance)
+book (must be Book instance)
+date (string)
+royalties (integer)
+all (class attribute storing all contracts)
+Validation
+All properties validate type and raise exceptions if invalid.
+Class Method
+contracts_by_date(date) → returns all contracts matching date
 
-* Build Book class
-* Build Author class
-* Build Contract class
-* Build connecting methods between all
+## Running Tests
+Install pytest:
+```
+python -m pip install pytest
+```
 
-### Task 2: Determine the Design
+Run tests:
+```
+pytest
+```
 
-#### Book:
-* Attributes:
-  * title (string)
-  * all (array) 
-* Methods:
-  * contracts()
-  * authors()
+All tests should pass successfully.
 
-#### Authors:
-* Attributes:
-  * name (string)
-  * all (array)
-* Methods:
-  * contracts()
-  * books()
-  * sign_contracts(book,date,royalties)
-  * total_royalties()
+## Features Implemented
+✔ Many-to-many relationship modeling
+✔ Author ↔ Book linking through Contract
+✔ Royalty tracking
+✔ Contract filtering by date
+✔ Input validation
+✔ Fully tested with pytest
 
-#### Contracts:
-* Attributes:
-  * author (Author class), 
-  * book (Book class), 
-  * date (string), 
-  * royalties (integer)
-  * all (array)
-* Methods:
-  * contracts_by_date()
+## Requirements
+Python 3.12+
+pytest
+Check version:
+python --version
 
-### Task 3: Develop, Test, and Refine the Code
 
-#### Step 1: Create feature branch
-
-#### Step 2: Create Book class
-
-* `__init__`: title
-* Class attributes- all
-* Methods:
-  * contracts()- This method should return a list of related contracts
-  * authors()- This method should return a list of related authors using the Contract class as an intermediary
-
-#### Step 3: Authors
-
-* `__init__`: name (string)
-* Class attributes- all
-* Methods:
-  * contracts()- This method should return a list of related contracts
-  * books()- This method should return a list of related books using the Contract class as an intermediary
-  * sign_contracts(book,date,royalties)- This method should create and return a new Contract object between the author and the specified book with the specified date and royalties
-  * total_royalties()- This method should return the total amount of royalties that the author has earned from all of their contracts
-
-#### Step 4: Contracts
-
-* `__init__`:
-  * author
-  * book
-  * date 
-  * royalties 
-* Class attributes: all
-* Properties: All properties should raise an exception if not valid
-  * author: Is an instance of Author class
-  * book:  Is an instance of Book class
-  * date: Is an instance of a str
-  * royalties:  Is an instance of an int
-* Class Methods: contracts_by_date()- This method should return all contracts that have the same date as the date passed into the method
-
-#### Step 6: Push feature branch and open a PR on GitHub
-
-#### Step 7: Merge to main
-
-### Task 4: Document and Maintain
-
-Best Practice documentation steps:
-* Add comments to the code to explain purpose and logic, clarifying intent and functionality of your code to other developers.
-* Update README text to reflect the functionality of the application following https://makeareadme.com. 
-  * Add screenshot of completed work included in Markdown in README.
-* Delete any stale branches on GitHub
-* Remove unnecessary/commented out code
-* If needed, update git ignore to remove sensitive data
-
-## Important Submission Note
-
-Before you submit your solution, you need to save your progress with git.
-
-* Add your changes to the staging area by executing git add .
-* Create a commit by executing git commit -m "Your commit message"
-* Push your commits to GitHub by executing git push origin main
